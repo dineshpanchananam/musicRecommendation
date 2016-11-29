@@ -83,11 +83,10 @@ if len(sys.argv) > 1:
          .map(lambda row: (row[0], map(lambda rating: (rating[0], rating[1] / (0.000001 + row[2])), row[1])))
 
   power_users = users.takeOrdered(POWER_USERS, key=lambda x: -len(x[1]))
-
   user_id = 10
   # get top 10 items
   N = 10
-  print item.count()
+  print items.count()
 
   user  = users.filter(lambda x: x[0] == user_id).first()
   user_items = [item[0] for item in user[1]]
