@@ -30,23 +30,34 @@ def calculateScore(line):
 conf = SparkConf()
 sc = SparkContext(conf = conf)
 #sc = SparkContext(sys.argv[1], "PythonUserCF")
-data = sc.textFile("data1.txt")
-songsAttributes = sc.textFile("songatt.txt")
-userId = "c1"
+if len(sys.argv) > 1:
 
-# [(i1,r1), (i2, r2)...] for logged in user
-itemRatings = data.map(parseVector).filter(lambda x: x[0] == userId).map(lambda x : (x[1][0],x[1][1]))
-itemRatingsMap = itemRatings.collectAsMap()
+	number_of_recommendations = 50
+	input_file = sys.argv[1]
+	input_attributes = sys.argv[2]
+	user_id = sys.argv[3]
+	if len(sys.argv)>4:
+		number_of_recommendations = int(sys.argv[4])
+	
+	data = sc.textFile(input_file)
+	songsAttributes = sc.textFile(input_attributes)
 
-#genreArtistScores = songsAttributes.map(parseVector).filter(lambda x: x[0] in itemRatingsMap).flatMap(lambda x: x[1]).countByValue()
+	# [(i1,r1), (i2, r2)...] for logged in user
+	itemRatings = data.map(parseVector).filter(lambda x: x[0] == user_id).map(lambda x : (x[1][0],x[1][1]))
+	itemRatingsMap = itemRatings.collectAsMap()
 
-genreArtistRatingRows = songsAttributes.map(lambda x:x.encode("ascii","ignore")).map(parseVector).filter(lambda x: x[0] in itemRatingsMap).join(itemRatings).flatMapValues(lambda x:x).flatMapValues(lambda x:x).groupByKey()
+	#genreArtistScores = songsAttributes.map(parseVector).filter(lambda x: x[0] in itemRatingsMap).flatMap(lambda x: x[1]).countByValue()
 
-avgGenreRating = genreArtistRatingRows.map(lambda x: list(x[1])).map(lambda x: (x[0], float(x[2].encode('ascii', 'ignore')))).groupByKey().map(lambda x : (x[0], list(x[1]))).mapValues(sum).map(lambda x: (x[1], x[0]))
+	genreArtistRatingRows = songsAttributes.map(lambda x:x.encode("ascii","ignore")).map(parseVector).filter(lambda x: x[0] in itemRatingsMap).join(itemRatings).flatMapValues(lambda x:x).flatMapValues(lambda x:x).groupByKey()
 
-avgArtistRating = genreArtistRatingRows.map(lambda x: list(x[1])).map(lambda x: (x[1], float(x[2].encode('ascii', 'ignore')))).groupByKey().map(lambda x : (x[0], list(x[1]))).mapValues(sum).map(lambda x: (x[1], x[0]))
+	avgGenreRating = genreArtistRatingRows.map(lambda x: list(x[1])).map(lambda x: (x[0], float(x[2].encode('ascii', 'ignore')))).groupByKey().map(lambda x : (x[0], list(x[1]))).mapValues(sum).map(lambda x: (x[1], x[0]))
 
-avgRating = avgGenreRating.union(avgArtistRating).map(lambda x: (x[1], x[0])).collectAsMap()
+	avgArtistRating = genreArtistRatingRows.map(lambda x: list(x[1])).map(lambda x: (x[1], float(x[2].encode('ascii', 'ignore')))).groupByKey().map(lambda x : (x[0], list(x[1]))).mapValues(sum).map(lambda x: (x[1], x[0]))
 
-broadCastedData = sc.broadcast(avgRating)
-recommendationList = songsAttributes.map(calculateScore).takeOrdered(50,key = lambda x: -x[1])
+	avgRating = avgGenreRating.union(avgArtistRating).map(lambda x: (x[1], x[0])).collectAsMap()
+
+	broadCastedData = sc.broadcast(avgRating)
+	recommendationList = songsAttributes.map(calculateScore).takeOrdered(number_of_recommendations,key = lambda x: -x[1])
+	print [x[0] for x in recommendationList]
+else:
+	print "check input file"
