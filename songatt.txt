@@ -1,7 +1,0 @@
-i1	g1	a1
-i2	g2	a2
-i3	g1	a3
-i4	g2	a1
-i5 	g4	a3
-i6	g1	a2
-i7	g4	a3
