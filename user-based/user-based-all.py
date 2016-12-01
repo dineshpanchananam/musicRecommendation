@@ -75,7 +75,7 @@ if len(sys.argv) > 1:
          .map(lambda line: line.strip().split(sep))\
          .map(lambda row: (int(row[0]), (int(row[1]), float(row[2]))))
 
-  items = file_input.map(lambda row: row[1]).groupByKey().map(lambda x: x[0])
+  items = file_input.map(lambda row: row[1]).distinct()
   
   users = file_input.groupByKey()\
          .map(lambda row: (row[0], row[1], sqrt(sum(map(lambda rating: rating[1] * rating[1], row[1])))))\
@@ -89,7 +89,7 @@ if len(sys.argv) > 1:
   user  = users.filter(lambda x: x[0] == user_id).first()
   user_items = [item[0] for item in user[1]]
   similarity_matrix = users.map(lambda user: [user[0], compute_similarity_vector(user[1], power_users)]) 
-  similarity_vector = similarity_matrix.filter(lambda row: row[0] == user_id).first()
+  similarity_vector = similarity_matrix.filter(lambda row: row[0] == user_id).first()[1]
   # similarity_vector = dict(compute_similarity_vector(user[1], power_users))
   not_rated = items.filter(lambda item: item not in user_items)
   recommendations = not_rated.map(lambda item: (item, predict_rating(item, power_users, similarity_vector)))\
