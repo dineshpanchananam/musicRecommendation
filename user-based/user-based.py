@@ -71,11 +71,12 @@ if len(sys.argv) > 3:
   input_file = sys.argv[1]
   N = int(sys.argv[2])
   user_id = int(sys.argv[3])
+  song_names_file = sys.argv[4]
   
   sep = comma if ".csv" in input_file else tab
   sc = SparkContext(appName="user-based")
 
-  song_names = sc.textFile("names.txt")\
+  song_names = sc.textFile(song_names_file)\
                  .map(lambda line: line.strip().split(tab))\
                  .map(lambda tup: (int(tup[0]), tup[1]))\
                  .collectAsMap()
