@@ -16,8 +16,14 @@ if len(sys.argv) > 4:
   user_id = int(sys.argv[4])
 
   sc = SparkContext(appName="spark-mlib-als")
-  train_set = sc.textFile(train_file).cache()
-  test_set = sc.textFile(test_file)
+  train_set = sc.textFile(train_file).map(parseText).cache()
+  test_set = sc.textFile(test_file).map(parseText)
+  model = ALS.train(train_set, rank = 10, iterations = 5)
+  products_rated = train_set.
+  
+
+  predictions = model.predict(
+  print dir(model)
 
 
 else:
