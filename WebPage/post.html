@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Music Recommendation</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+           
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('img/abstract-music-rock-bw.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Music Recommendation</h1>
+                        <h2 class="subheading">User-based Content-based Item-based</h2>
+                        <!--<span class="meta">Posted by <a href="#">Start Bootstrap</a> on August 24, 2014</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <p>Today’s internet users face an ever increasing amount of data, which makes it constantly harder and more time consuming to pick out the interesting pieces of information from all the noise. Intelligent filters in recommendation system can learn about the users’ preferences and figure out the most relevant information for them. With hundreds of songs and music being created every week, it will be interesting to implement a scalable recommender system that suggests songs of our taste which are rated high by other users.</p>
+
+                    
+                    <h2 class="section-heading">Overview of project</h2>
+					<h3>Collaborative Filtering</h3>
+					<p>One approach to the design of recommender systems that has wide use is collaborative filtering.Collaborative filtering methods are based on collecting and analyzing a large amount of information on users’ behaviors, activities or preferences and predicting what users will like based on their similarity to other users. A key advantage of the collaborative filtering approach is that it does not rely on machine analyzable content and therefore it is capable of accurately recommending complex items such as movies without requiring an "understanding" of the item itself. Many algorithms have been used in measuring user similarity or item similarity in recommender systems.</p>
+					<h4>User-based Recommendation System</h4>
+					<ul>
+						<li>Load User-rating dataset and then create normalize user vectors </li>
+						<li>Find top 500 power users from a given dataset based on number of ratings given by user.</li>
+						<li>For a logged-in user, find the cosine similarity between his ratings with power users  and come up with similarity vectors.</li>
+						<li>Sort similarity vectors in descending order of similarity and come up with top N recommendations.</li>
+					</ul>
+					<h4>Item-based Recommendation System</h4>
+					<ul>
+						<li>Load user-rating dataset and obtain user-rating matrix (here choose random 500 ratings for each user).</li>
+						<li>Find all item-item pair combos.</li>
+						<li>Calculate the cosine similarity for each item pair and select the top N neighbours.</li>
+						<li>Preprocess the item similarity matrix into a dictionary and store it as broadcast variable.</li>
+						<li>For a logged-in user calculate top N item recommendations.</li>
+					</ul>
+					<h3>Content-based Recommendation System</h3>
+					<ul>
+						<li>Load user-rating dataset and for a logged-in user, find his history based on ratings he has given, let that Set be H.
+						<li>Load Song-attribute dataset to read features viz., artist and genre.</li>
+						<li>For a logged-in user U find TFIDF score for both artist and genre from his history set H.</li>
+						<li>Based on TFIDF scores of feature, calculate score for each song from dataset.</li>
+						</li>Sort all songs and show top N recommendations</li>
+					</ul>
+
+					<h2>Data sets used </h2>
+					<a href="http://webscope.sandbox.yahoo.com/catalog.php?datatype=r">dataset</a>
+					<h3>User-based Recommendation</h3>
+						<p>R1(115 million user ratings)</p>
+						<h4>Features used</h4> user_id, item_id/song_id and rating
+					<h3>Content-based Recommendation</h3>
+						<p>R2 part 1 (136736 songs, 717 million ratings)</p>
+						<h4>Features used</h4> user_id, song_id and rating 
+						<ul><li>song_id, genre_id, artist_id</li>
+							<li>song_id, song_name </li>
+						</ul>
+					<h3>Item-based Recommendation</h3>
+						<p>R3 (300,000  user ratings)</p>
+						<h4>Features used</h4> user_id, item_id/song_id and rating
+					<h3>Algorithms /techniques/ Framework</h3>
+						<p>Similarity-based Neighbourhood methods</p>		
+					<h3>Illustrative results and examples</h3>
+					<h3>Performance evaluation</h3>
+						<h4>User-based Recommendation</h4>
+						<p>O(n) where n  is number of users</p>
+						<h4>Content-based Recommendation</h4>
+						<p>O(n) where n is number of songs</p>
+						<h4>Item-based Recommendation</h4>
+						<p>o(n^2) where n is number of items</p>
+
+					<h3>Goals that will definitely be accomplish</h3>
+					<p>Will provide a list of songs as a recommendation, based on similarity based neighborhood methods.  --Accomplished</p>
+					<h3>Goals that may be accomplish</h3>
+					<p>Involve user history along with the neighborhood methods in coming up with the recommendations. --Accomplished</p>
+					<h3>Goals we will try to accomplish</h3>
+					<p>Achieve linear scalability with growing user base and music data. --Accomplished</p>
+
+					<h3>Additional comments and observations</h3>
+
+					<h3>Work division among team members</h3>
+					<ul>
+						<li>Preprocessing and analysis of dataset : All team members</li>
+						<li>User-based Recommendation Design : All team members</li>
+						<li>User-based Recommendation Implementation : Dinesh</li>
+						<li>Content based Recommendation Design : Komal, Apoorva</li>
+						<li>Content based Recommendation Implementation :  Komal, Apoorva</li>
+						<li>Item-based Recommendation Design : All team members</li>
+						<li>Item-based Recommendation Implementation : Komal, Apoorva</li>
+						<li>Off-the-shelf implementation : Dinesh</li>
+					<h4>References</h4><a href="https://ssc.io/pdf/rec11-schelter.pdf">https://ssc.io/pdf/rec11-schelter.pdf</a>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                   <!-- <p class="copyright text-muted">Copyright &copy; Your Website 2016</p>-->
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
