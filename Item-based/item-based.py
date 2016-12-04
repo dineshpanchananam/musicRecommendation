@@ -131,7 +131,6 @@ Get all item-item pair combos:
 (item1,item2) -> [(item1_rating,item2_rating),
 (item1_rating,item2_rating),
 ...]
-
 CODE TO SEE INTERMEDIATE RESULT
 pairwise_items = user_item_pairs.filter(
 lambda p: len(p[1]) > 1).map(
@@ -171,7 +170,6 @@ Read in test data and calculate MAE
 """
 test_ratings = defaultdict(list)
 # read in the test data
-
 f = open("tests/data/cftest.txt", 'rt')
 reader = csv.reader(f, delimiter='|')
 for row in reader:
@@ -190,3 +188,4 @@ for (user,items_with_rating) in user_item_recs:
                 result = mae.compute()
                 print "Mean Absolute Error: ",result
 """
+Contact GitHub 
