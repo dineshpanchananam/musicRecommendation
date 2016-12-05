@@ -178,6 +178,6 @@ songWithNames = songNames.map(lambda x:x.encode("ascii","ignore")).map(separate)
 """
 Save final result in a file, named 'recommendation-for-(user_id).txt'
 """
-with open("recommendation-for-%s.txt" % user_id, "w") as o:
+with open("item-recommendation-for-%s.txt" % user_id, "w") as o:
 	o.write("\n".join([str(x) for x in songWithNames]))
 
