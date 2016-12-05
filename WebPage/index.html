@@ -108,7 +108,8 @@
 						</li>Sort all songs and show top N recommendations</li>
 					</ul>
 					<h3>Algorithms /techniques/ Framework</h3>
-						<p>Similarity-based Neighbourhood methods</p>		
+						<p>Similarity-based Neighbourhood methods</p>	
+						<p>Framework: Apache Spark</p>						
 					<h3>Performance evaluation</h3>
 						<h4>User-based Recommendation</h4>
 						<p>O(n) where n  is number of songs</p>
@@ -125,7 +126,12 @@
 					<p>Achieve linear scalability with growing user base and music data. --Accomplished</p>
 
 					<h3>Additional comments and observations</h3>
-
+						<h4>Challenges</h4>
+						<p>Primarily for collaborative algorithms, quite a few approaches for computing initial user-item matrix had to be rejected considering in-memory execution in spark </p>
+						<p>For item based collaborative algorithm, pairwise-item  comparision requires O(N^2) both space and time Complexity which put limitations on larger dataset.</p>
+						<h4>Cool Enhancements</h4>
+						<p>In User-based collaborative implementation, we have considered a set of 'Power Users'(Users with higher item-interaction).The ratings of these 'Power Users' are used to obtain similarity matrix with logged-in user. This helps in achieving Linear scalability.</p>
+						
 					<h3>Work division among team members</h3>
 					<ul>
 						<li>Preprocessing and analysis of dataset : All team members</li>
@@ -144,7 +150,27 @@
     </article>
 
     <hr>
-
+ <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-10 ">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <p>Apoorva Jagtap(800936067)</p>
+                        </li>
+                        <li>
+                            <p>Dinesh Panchananam(800937153)</p>
+                        </li>
+                        <li>
+                            <p>Komal Ingale(800936676)</p>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">Copyright &copy; Cloud computing Fall2016</p>
+                </div>
+            </div>
+        </div>
+    </footer>
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
 
