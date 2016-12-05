@@ -15,11 +15,11 @@ I/O
 
 takes 6 arguments
 ----------------
-data-set (text.txt)
+data-set
 
-music-names-file (names_.txt)
+music-names-file
 
-similarity-function - can be (cosine | pearson)
+similarity-function - has to be (cosine | pearson)
 
 power_users - no of popular visitors to be compared against
 
