@@ -32,7 +32,7 @@ def parseInput(line):
 Extract song id as a key and it's corresponding song name 
 as a value from song names file.
 """	
-def separate(line):
+def parseSong(line):
 	line = line.split("\t")
 	return line[0],line[1]
 
@@ -40,7 +40,7 @@ def separate(line):
 Extract genre id as a key and it's corresponding genre name 
 as a value from genre-hierarchy file.
 """
-def getGenreName(line):
+def parseGenre(line):
 	line = line.split("\t")
 	return line[0],line[3]
 
@@ -119,13 +119,13 @@ if len(sys.argv) > 1:
 	recommendationSongIds = recommendations.map(lambda x:x[0]).collect()
 
 	#Get the names for the recommended song ids
-	songWithNames = songNames.map(lambda x:x.encode("ascii","ignore")).map(separate).filter(lambda x:x[0] in recommendationSongIds)
+	songWithNames = songNames.map(lambda x:x.encode("ascii","ignore")).map(parseSong).filter(lambda x:x[0] in recommendationSongIds)
 	
 	#Get the corresponding genre ids of recommended songs
 	recommendationGenreIds = songsAttributes.map(lambda x:x.encode("ascii","ignore")).map(parseAttributes).filter(lambda x: x[0] in recommendationSongIds).map(lambda x: x[1][0]).collect()
 	
 	#Get names of the genre name of each recommended song based on genre id.
-	filteredGenresFromRecommendation = genreNames.map(getGenreName).filter(lambda x: x[0] in recommendationGenreIds).collectAsMap()
+	filteredGenresFromRecommendation = genreNames.map(parseGenre).filter(lambda x: x[0] in recommendationGenreIds).collectAsMap()
 
 	#Get the final result in the form of "'song name' (Genre: 'genre name')" for recommended songs
 	songWithGenre = songsAttributes.map(lambda x:x.encode("ascii","ignore")).map(parseAttributes).filter(lambda x: x[0] in recommendationSongIds).map(lambda x: (x[0],filteredGenresFromRecommendation[x[1][0]])).join(songWithNames).collect()
