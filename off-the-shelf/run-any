@@ -1,3 +1,0 @@
-#!/bin/sh
-
-spark-submit --driver-memory 6g --executor-memory 6g $1 $2 $3
