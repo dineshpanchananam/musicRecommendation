@@ -79,9 +79,10 @@ if len(sys.argv) > 1:
 	input_file = sys.argv[1]
 	input_attributes = sys.argv[2]
 	song_names = sys.argv[3]
-	user_id = sys.argv[4]
-	if len(sys.argv)>5:
-		number_of_recommendations = int(sys.argv[5])
+	genre-names = sys.argv[4]
+	user_id = sys.argv[5]
+	if len(sys.argv)>6:
+		number_of_recommendations = int(sys.argv[6])
 
 	#Read input data file conatining user id, song id and rating
 	data = sc.textFile(input_file)
@@ -90,7 +91,7 @@ if len(sys.argv) > 1:
 	#Read song names file conatining song id and song name
 	songNames = sc.textFile(song_names)
 	#Read genre hierarchy file conatining genre id, parent id, genre level and genre name
-	genreNames = sc.textFile("genre-hierarchy.txt")
+	genreNames = sc.textFile(genre-names)
 
 	# Get item, rating pairs of the songs that current user has rated. [(i1,r1), (i2, r2)...]
 	itemRatings = data.map(parseInput).filter(lambda x: x[0] == user_id).map(lambda x : (x[1][0],x[1][1]))
