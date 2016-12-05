@@ -38,7 +38,19 @@
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-           
+           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="dataset.html">Dataset</a>
+                    </li>
+                    <li>
+                        <a href="result.html">Results</a>
+                    </li>
+                </ul>
+            </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
@@ -49,7 +61,7 @@
     <header class="intro-header" style="background-image: url('img/abstract-music-rock-bw.jpg')">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="col-md-offset-1">
                     <div class="post-heading">
                         <h1>Music Recommendation</h1>
                         <h2 class="subheading">User-based Content-based Item-based</h2>
@@ -87,6 +99,7 @@
 						<li>For a logged-in user calculate top N item recommendations.</li>
 					</ul>
 					<h3>Content-based Recommendation System</h3>
+					<p>A content based recommender works with data that the user provides, either explicitly (rating) or implicitly (clicking on a link). Based on that data, a user profile is generated, which is then used to make suggestions to the user. As the user provides more inputs or takes actions on the recommendations, the engine becomes more and more accurate.</p>
 					<ul>
 						<li>Load user-rating dataset and for a logged-in user, find his history based on ratings he has given, let that Set be H.
 						<li>Load Song-attribute dataset to read features viz., artist and genre.</li>
@@ -94,31 +107,15 @@
 						<li>Based on TFIDF scores of feature, calculate score for each song from dataset.</li>
 						</li>Sort all songs and show top N recommendations</li>
 					</ul>
-
-					<h2>Data sets used </h2>
-					<a href="http://webscope.sandbox.yahoo.com/catalog.php?datatype=r">dataset</a>
-					<h3>User-based Recommendation</h3>
-						<p>R1(115 million user ratings)</p>
-						<h4>Features used</h4> user_id, item_id/song_id and rating
-					<h3>Content-based Recommendation</h3>
-						<p>R2 part 1 (136736 songs, 717 million ratings)</p>
-						<h4>Features used</h4> user_id, song_id and rating 
-						<ul><li>song_id, genre_id, artist_id</li>
-							<li>song_id, song_name </li>
-						</ul>
-					<h3>Item-based Recommendation</h3>
-						<p>R3 (300,000  user ratings)</p>
-						<h4>Features used</h4> user_id, item_id/song_id and rating
 					<h3>Algorithms /techniques/ Framework</h3>
 						<p>Similarity-based Neighbourhood methods</p>		
-					<h3>Illustrative results and examples</h3>
 					<h3>Performance evaluation</h3>
 						<h4>User-based Recommendation</h4>
-						<p>O(n) where n  is number of users</p>
+						<p>O(n) where n  is number of songs</p>
 						<h4>Content-based Recommendation</h4>
 						<p>O(n) where n is number of songs</p>
 						<h4>Item-based Recommendation</h4>
-						<p>o(n^2) where n is number of items</p>
+						<p>O(n^2) where n is number of items</p>
 
 					<h3>Goals that will definitely be accomplish</h3>
 					<p>Will provide a list of songs as a recommendation, based on similarity based neighborhood methods.  --Accomplished</p>
@@ -140,33 +137,13 @@
 						<li>Item-based Recommendation Implementation : Komal, Apoorva</li>
 						<li>Off-the-shelf implementation : Dinesh</li>
 					<h4>References</h4><a href="https://ssc.io/pdf/rec11-schelter.pdf">https://ssc.io/pdf/rec11-schelter.pdf</a>
+					<a href="https://bmcfee.github.io/papers/msdchallenge.pdf">https://bmcfee.github.io/papers/msdchallenge.pdf</a>
                 </div>
             </div>
         </div>
     </article>
 
     <hr>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <ul class="list-inline text-center">
-                        <li>
-                            <a href="">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                   <!-- <p class="copyright text-muted">Copyright &copy; Your Website 2016</p>-->
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
